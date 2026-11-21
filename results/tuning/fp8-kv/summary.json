@@ -1,0 +1,81 @@
+{
+  "model": "thinkingmachines/Inkling-2-Mini",
+  "image": "vllm/vllm-openai@sha256:c2dc759f5984f69c1e2418c6af7c26eb756f5ed2a8934c768ae1253645d1449e",
+  "draft_mode": "DSpark x7, probabilistic",
+  "gpu_memory_utilization": 0.7,
+  "context": 262144,
+  "configs": [
+    {
+      "profile": "auto-before",
+      "exit": 0,
+      "kv_tokens": 592794,
+      "kv_scale_warning": [],
+      "c1": {
+        "samples": 6,
+        "decode_median": 39.93189061732187,
+        "ttft_s_median": 0.19790343700151425
+      },
+      "c5": {
+        "samples": 6,
+        "decode_median": 109.83186848578666,
+        "ttft_s_median": 0.3607910400023684
+      },
+      "prefill_128k": {
+        "prompt_tokens": 131037,
+        "cached_prompt_tokens": 0,
+        "exact_key_found": true,
+        "first_token_seconds": 53.501187194982776,
+        "prompt_tokens_per_second_to_first_token": 2449.2353697206995
+      },
+      "gpu_sampled_peak_gib": 81.01953125
+    },
+    {
+      "profile": "fp8-kv",
+      "exit": 0,
+      "kv_tokens": 836176,
+      "kv_scale_warning": [],
+      "c1": {
+        "samples": 6,
+        "decode_median": 41.010125614779874,
+        "ttft_s_median": 0.22377394899376668
+      },
+      "c5": {
+        "samples": 6,
+        "decode_median": 107.82182415373164,
+        "ttft_s_median": 0.36417861899826676
+      },
+      "prefill_128k": {
+        "prompt_tokens": 131037,
+        "cached_prompt_tokens": 0,
+        "exact_key_found": true,
+        "first_token_seconds": 55.7361483600107,
+        "prompt_tokens_per_second_to_first_token": 2351.023596995012
+      },
+      "gpu_sampled_peak_gib": 81.740234375
+    },
+    {
+      "profile": "auto-after",
+      "exit": 0,
+      "kv_tokens": 598185,
+      "kv_scale_warning": [],
+      "c1": {
+        "samples": 6,
+        "decode_median": 40.083157027512385,
+        "ttft_s_median": 0.21902277049957775
+      },
+      "c5": {
+        "samples": 6,
+        "decode_median": 112.54057197892635,
+        "ttft_s_median": 0.3209815825102851
+      },
+      "prefill_128k": {
+        "prompt_tokens": 131037,
+        "cached_prompt_tokens": 0,
+        "exact_key_found": true,
+        "first_token_seconds": 53.09808647900354,
+        "prompt_tokens_per_second_to_first_token": 2467.829044118486
+      },
+      "gpu_sampled_peak_gib": 81.546875
+    }
+  ]
+}

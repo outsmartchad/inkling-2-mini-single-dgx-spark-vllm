@@ -1,0 +1,20 @@
+{
+  "prompt_hash": "7b9ffbff1db031bfaa25648fb61ef66d5bf1d3cc8e5e66d599f9663b43e196b1",
+  "prompt_tokens": 131037,
+  "cached_prompt_tokens": 0,
+  "completion_tokens": 91,
+  "finish_reason": "stop",
+  "reasoning_events": 23,
+  "first_token_seconds": 55.7361483600107,
+  "first_answer_seconds": 57.4000612939999,
+  "elapsed_seconds": 57.556275158014614,
+  "stream_decode_tokens_per_second": 51.87000114398981,
+  "target_prompt_tokens": 131072,
+  "tokenized_raw_prompt_tokens": 131037,
+  "repetition": 1,
+  "prompt_seed": 2027243204,
+  "exact_key_found": true,
+  "expected_key": "FROST-133094C2",
+  "returned_answer": "FROST-133094C2",
+  "prompt_tokens_per_second_to_first_token": 2351.023596995012
+}

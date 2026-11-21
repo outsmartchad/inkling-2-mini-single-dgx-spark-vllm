@@ -22,11 +22,27 @@ C1 and C5 decode values are medians of six aggregate rates at each concurrency. 
 
 The recipe remains on probabilistic DSpark ×7 and vLLM's breakable CUDA graphs. We kept the 32K and 128K cold-prefill results from the baseline. The tuning candidates were speed screens and did not advance to full-context qualification.
 
+## FP8 KV cache
+
+A second matched screen compared automatic KV dtype with `--kv-cache-dtype fp8_e4m3` at the same 0.70 GPU-memory setting. Both controls and the candidate used probabilistic DSpark ×7 and breakable CUDA graphs. Decode values are medians of six 256-token waves at each concurrency. Each launch also ran one matched, fresh 128K retrieval probe.
+
+| KV profile | C1 tok/s | C5 aggregate tok/s | Reported KV tokens | 128K TTFT | Retrieval | Sampled GPU peak |
+|---|---:|---:|---:|---:|---:|---:|
+| Automatic KV · before | 39.93 | 109.83 | 592,794 | 53.50 s | Pass | 81.0 GiB |
+| FP8 E4M3 KV | 41.01 | 107.82 | 836,176 | 55.74 s | Pass | 81.7 GiB |
+| Automatic KV · after | 40.08 | 112.54 | 598,185 | 53.10 s | Pass | 81.5 GiB |
+
+FP8 raised the reported KV capacity by **40–41%** with a similar sampled GPU footprint. Single-user decode was 2–3% higher, while five-user aggregate throughput was 2–4% lower. Each profile retrieved the same audit code from 131,037 uncached input tokens. FP8 took about 2–3 seconds longer to return its first token on that probe.
+
+We kept automatic KV as the recipe default. The 128K comparison used one sample per profile. Concurrent full-context retrieval and broader quality checks remain unmeasured with FP8.
+
+[Matched decode samples, 128K probes, and summary](../results/tuning/fp8-kv/)
+
 ## Bandwidth and next experiments
 
 The idle GB10 microbenchmark read and wrote a 512 MiB device buffer at **219.1 GB/s combined**. A 4096³ BF16 GEMM reached **90.1 TFLOP/s**. Counting the checkpoint's active expert bytes and shared weights across 48 effective layer visits gives a plain-decode proxy of about 5.50 GB/token. At the observed copy bandwidth that is **39.9 tok/s** before KV traffic and other overhead. This is a back-of-the-envelope estimate for the no-draft path. Drafting can share target weight reads over multiple accepted tokens.
 
-The native draft block requires seven proposals. Research found FP8 KV on this pinned build and official GB10 SGLang support. Those are separate long-context and alternate-engine experiments and were outside this short-decode screen. [FP8 Spark configuration](https://github.com/tonyd2wild/Inkling-2-Mini-NVFP4-DGX-Spark/blob/main/launch_maxkv_fp8.sh) · [Official SGLang Spark configuration](https://github.com/sgl-project/sglang/blob/main/docs/src/snippets/configs/thinkingmachines/inkling-2-mini.jsx#L501)
+The native draft block requires seven proposals. SGLang on GB10 remains a separate engine experiment. [FP8 Spark configuration](https://github.com/tonyd2wild/Inkling-2-Mini-NVFP4-DGX-Spark/blob/main/launch_maxkv_fp8.sh) · [Official SGLang Spark configuration](https://github.com/sgl-project/sglang/blob/main/docs/src/snippets/configs/thinkingmachines/inkling-2-mini.jsx#L501)
 
 ## Run the screen
 

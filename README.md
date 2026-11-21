@@ -17,7 +17,7 @@ Decode uses high reasoning effort with 400 output tokens per request. Prefill us
 
 [All 1–5 stream results, test settings, and raw data](docs/baseline.md)
 
-[Controlled tuning results](docs/optimization.md) cover greedy drafting, classic CUDA graphs, and DSpark off.
+[Controlled tuning results](docs/optimization.md) cover greedy drafting, classic CUDA graphs, DSpark off, and FP8 KV.
 
 ## Run on the Spark
 
