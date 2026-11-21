@@ -17,6 +17,8 @@ Decode uses high reasoning effort with 400 output tokens per request. Prefill us
 
 [All 1–5 stream results, test settings, and raw data](docs/baseline.md)
 
+[Controlled tuning results](docs/optimization.md) cover greedy drafting, classic CUDA graphs, and DSpark off.
+
 ## Run on the Spark
 
 Requirements are a DGX Spark and Docker with NVIDIA GPU support. Git, Python 3, and curl are used by the recipe and benchmark client. Allow disk space for the **18.8 GiB** pinned checkpoint, ARM64 image, and persistent CUDA caches. Pause other inference workloads before launching this measured configuration.

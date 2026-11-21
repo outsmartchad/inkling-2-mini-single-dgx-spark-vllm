@@ -105,12 +105,12 @@ def stream(prompt, *, thinking, limit, temperature, force=False, barrier=None):
         "stream_decode_tokens_per_second": (received - 1) / (last - first) if last > first else None,
     }, (start, first, last, finished), "".join(pieces)
 
-def decode_wave(streams, repetition):
+def decode_wave(streams, repetition, limit=400):
     prompts = [HASH_MAP_PROMPT] if streams == 1 else [
         f"Request ID: decode-{index}\n{HASH_MAP_PROMPT}" for index in range(1, streams + 1)]
     start_together = threading.Barrier(streams)
     with concurrent.futures.ThreadPoolExecutor(max_workers=streams) as pool:
-        jobs = [pool.submit(stream, prompt, thinking=True, limit=400, temperature=0.7,
+        jobs = [pool.submit(stream, prompt, thinking=True, limit=limit, temperature=0.7,
                             force=True, barrier=start_together) for prompt in prompts]
         outputs = [job.result() for job in jobs]
     marks = [output[1] for output in outputs]

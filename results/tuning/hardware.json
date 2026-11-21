@@ -1,0 +1,13 @@
+{
+  "gpu": "NVIDIA GB10",
+  "copy_buffer_bytes": 536870912,
+  "copy_read_write_gb_s": 219.13370978816275,
+  "copy_payload_gb_s": 109.56685489408137,
+  "bf16_gemm_shape": [
+    4096,
+    4096,
+    4096
+  ],
+  "bf16_tflop_s": 90.11178957447747,
+  "plain_decode_weight_traffic_gb_per_token_estimate": 5.496
+}

@@ -1,0 +1,110 @@
+{
+  "output_tokens": 256,
+  "profiles": [
+    {
+      "1": {
+        "tok_s": 40.064105438469355,
+        "ttft_s": 0.2213898930058349
+      },
+      "5": {
+        "tok_s": 108.51676280095026,
+        "ttft_s": 0.3582199380034581
+      },
+      "profile": "control-1",
+      "graph_mode": 1,
+      "dspark": "probabilistic",
+      "peak_gib": 78.525390625,
+      "memory_samples": 1297
+    },
+    {
+      "1": {
+        "tok_s": 38.780903972768215,
+        "ttft_s": 0.17615090499748476
+      },
+      "5": {
+        "tok_s": 102.5194943386231,
+        "ttft_s": 0.35699934800504707
+      },
+      "profile": "greedy-drafter",
+      "graph_mode": 1,
+      "dspark": "greedy",
+      "peak_gib": 78.203125,
+      "memory_samples": 1359
+    },
+    {
+      "1": {
+        "tok_s": 40.11453356964684,
+        "ttft_s": 0.17864684600499459
+      },
+      "5": {
+        "tok_s": 110.0343206214025,
+        "ttft_s": 0.35999168948910665
+      },
+      "profile": "control-2",
+      "graph_mode": 1,
+      "dspark": "probabilistic",
+      "peak_gib": 78.490234375,
+      "memory_samples": 1295
+    },
+    {
+      "1": {
+        "tok_s": 40.08146296195433,
+        "ttft_s": 0.1999975020007696
+      },
+      "5": {
+        "tok_s": 111.30063814691566,
+        "ttft_s": 0.35665351948409807
+      },
+      "profile": "classic-graphs",
+      "graph_mode": 0,
+      "dspark": "probabilistic",
+      "peak_gib": 78.30859375,
+      "memory_samples": 1413
+    },
+    {
+      "1": {
+        "tok_s": 40.08500567433141,
+        "ttft_s": 0.22131753651774488
+      },
+      "5": {
+        "tok_s": 110.77786625621408,
+        "ttft_s": 0.3166901280055754
+      },
+      "profile": "control-3",
+      "graph_mode": 1,
+      "dspark": "probabilistic",
+      "peak_gib": 78.138671875,
+      "memory_samples": 1376
+    },
+    {
+      "1": {
+        "tok_s": 37.83957793885678,
+        "ttft_s": 0.1688305840070825
+      },
+      "5": {
+        "tok_s": 108.77760912732296,
+        "ttft_s": 0.3260844454925973
+      },
+      "profile": "no-draft",
+      "graph_mode": 1,
+      "dspark": "off",
+      "peak_gib": 79.4267578125,
+      "memory_samples": 1393
+    },
+    {
+      "1": {
+        "tok_s": 40.0534012207585,
+        "ttft_s": 0.19790930500312243
+      },
+      "5": {
+        "tok_s": 110.99286526929751,
+        "ttft_s": 0.35810466049588285
+      },
+      "profile": "control-4",
+      "graph_mode": 1,
+      "dspark": "probabilistic",
+      "peak_gib": 78.560546875,
+      "memory_samples": 1366
+    }
+  ]
+}
