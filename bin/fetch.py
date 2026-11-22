@@ -2,15 +2,30 @@
 
 import json
 import os
+import sys
 from pathlib import Path
-
-from huggingface_hub import HfApi, snapshot_download
 
 MODEL = "thinkingmachines/Inkling-2-Mini"
 REVISION = "ed40e7da625f594fc9c4990f5f66be24873c22d7"
 
 
+def check_snapshot(snapshot: Path):
+    weights = json.loads((snapshot / "model.safetensors.index.json").read_text())["weight_map"]
+    if not isinstance(weights, dict) or not weights:
+        raise ValueError("Invalid weight index")
+    shards = set(weights.values())
+    if any(not isinstance(shard, str) or Path(shard).name != shard for shard in shards):
+        raise ValueError("Invalid weight index")
+    required = shards | {"config.json", "tokenizer.json", "mtp.safetensors", "chat_template.jinja"}
+    for name in sorted(required):
+        path = snapshot / name
+        if not path.is_file() or path.stat().st_size == 0:
+            raise ValueError(f"Missing or empty checkpoint file: {name}")
+
+
 def main():
+    from huggingface_hub import HfApi, snapshot_download
+
     root = Path(os.environ["HF_HOME"])
     info = HfApi().model_info(MODEL, revision=REVISION, token=False, files_metadata=True)
     if info.sha != REVISION or info.private or info.gated:
@@ -29,4 +44,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 3 and sys.argv[1] == "--check":
+        try:
+            check_snapshot(Path(sys.argv[2]))
+        except (KeyError, OSError, TypeError, ValueError) as error:
+            raise SystemExit(f"Checkpoint is incomplete ({error}). Run ./bin/recipe.sh fetch.")
+    else:
+        main()

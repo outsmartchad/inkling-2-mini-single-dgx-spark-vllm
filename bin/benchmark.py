@@ -122,7 +122,7 @@ def decode_wave(streams, repetition, limit=400):
             "aggregate_decode_tokens_per_second": (tokens - streams) / decode_seconds,
             "aggregate_wall_tokens_per_second": tokens / elapsed_seconds}
 
-def main():
+def smoke():
     if MODEL not in [item["id"] for item in api("/v1/models")["data"]]:
         raise RuntimeError("Wrong model on localhost.")
     sanity, _, answer = stream("Reply with exactly the word READY.", thinking=False,
@@ -130,6 +130,12 @@ def main():
     if answer.strip().upper().rstrip(".") != "READY":
         raise RuntimeError("Basic chat smoke failed.")
     print(f"Chat smoke passed ({sanity['completion_tokens']} output tokens).", file=sys.stderr, flush=True)
+
+
+def main():
+    smoke()
+    if sys.argv[1:] == ["--smoke"]:
+        return
     stream(HASH_MAP_PROMPT, thinking=True, limit=32, temperature=0.7)
     waves = []
     errors = []
