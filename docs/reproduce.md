@@ -23,6 +23,10 @@ export INKLING_CACHE="$HOME/.cache/inkling-2-mini-spark"
 
 `fetch` verifies the file sizes against Hub metadata and records the checkpoint revision. At serve time the launcher checks the staged checkpoint’s required files and weight shards. Rerun `fetch` if an earlier staging attempt left an incomplete cache. vLLM receives the pinned snapshot path with offline Hub mode and a read-only weights mount. [Launch command and build pins](results.md#hardware-and-build-pins)
 
+## Clean-install check
+
+On November 22, 2026, a fresh clone with an empty recipe weight and engine cache passed `doctor`, `fetch`, `serve`, and `smoke` on one DGX Spark. The first startup took roughly four and a half minutes on that run, including weight loading, autotuning, and CUDA graph capture. The API bound to `127.0.0.1:18905` and served the smoke request and the README's hash-map example. The recipe's `stop` command then shut down the test container.
+
 ## Run the full benchmark
 
 Pause other inference services you control to give vLLM the same memory headroom and reduce contention. With the server ready, run the following from a second Spark terminal inside the checkout.
