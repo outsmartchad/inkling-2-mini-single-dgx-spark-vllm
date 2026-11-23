@@ -4,6 +4,10 @@ Run Thinking Machines Lab’s 26.4B open-weight model on one DGX Spark. This rec
 
 [Reproduce the benchmark](docs/reproduce.md) · [How it works](docs/how-it-works.md) · [Full results and raw data](docs/results.md) · [Troubleshooting](docs/troubleshooting.md)
 
+![Inkling 2 Mini on one DGX Spark with vLLM, showing decode, cold prefill, and memory measurements over a monochrome storm landscape.](assets/inkling-2-mini-dgx-spark.png)
+
+*Artwork by John Martin, 1816.* [Joshua Commanding the Sun to Stand Still upon Gibeon](https://www.nga.gov/artworks/129865-joshua-commanding-sun-stand-still-upon-gibeon)
+
 ## Quick start
 
 Run these commands **on the Spark**, either in a terminal or over SSH. You need Git, Python 3, curl, and working Docker access with NVIDIA GPU support. The first run downloads an ARM64 image and an 18.8 GiB checkpoint. Check free space for both, plus runtime caches. The downloads are public and need no API key. [NVIDIA’s Spark Docker guide](https://docs.nvidia.com/dgx/dgx-spark/nvidia-container-runtime-for-docker.html)
@@ -57,8 +61,6 @@ Press **Ctrl-C** in the serving terminal, or run `./bin/recipe.sh stop` from the
 | 128K cold prefill | 2,464 tok/s | 53.19 s |
 
 Measured November 21, 2026. Decode used high reasoning effort with 400 output tokens per request and reports the fastest aggregate wave at each concurrency. Prefill reports medians from three fresh prompts at each length. Sampled peak GPU-process memory was **81.7 GiB**. One 32K request exhausted its output budget before returning the retrieval answer. [Method and raw results](docs/results.md)
-
-![Inkling 2 Mini benchmark card showing decode, cold prefill, and memory measurements.](assets/inkling-2-mini-dgx-spark.png)
 
 ## Configuration
 
